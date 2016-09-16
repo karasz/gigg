@@ -7,14 +7,14 @@ import (
 	//	"github.com/miekg/dns"
 )
 
-func DnsipRun(args []string, ipv6 bool) {
+func DnsipRun(args []string, ipv6 bool) int {
 	for _, arg := range args {
 		ips := make([]net.IP, 0)
 		ip, err := net.LookupIP(arg)
 		if err != nil {
 			ip = []net.IP{}
+			return 111
 		}
-
 		if !ipv6 {
 			for _, i := range ip {
 				if i.To4() != nil {
@@ -32,4 +32,5 @@ func DnsipRun(args []string, ipv6 bool) {
 		}
 		fmt.Println("")
 	}
+	return 0
 }
