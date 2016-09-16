@@ -22,6 +22,8 @@ func main() {
 		c.DnsnameRun(args)
 	case "dnsmx":
 		c.DnsmxRun(args)
+	case "dnstxt":
+		c.DnstxtRun(args)
 	default:
 		fmt.Println("Called as ", calledAs, ". I don't recognize that name")
 	}
