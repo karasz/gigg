@@ -2,8 +2,16 @@ package cmds
 
 import (
 	"fmt"
+	"net"
 )
 
 func DnsnameRun(args []string) {
-	fmt.Println(args)
+	for _, ip := range args {
+		name, err := net.LookupAddr(ip)
+		if err != nil {
+			fmt.Println("")
+		} else {
+			fmt.Println(name[0][:len(name[0])-1])
+		}
+	}
 }
