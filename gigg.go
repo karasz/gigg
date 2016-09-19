@@ -29,6 +29,10 @@ func main() {
 		res = c.DnsmxRun(args)
 	case "dnstxt":
 		res = c.DnstxtRun(args)
+	case "dnsrandip":
+		res = c.DnsrandipRun(false)
+	case "dnsrandip6":
+		res = c.DnsrandipRun(true)
 	default:
 		fmt.Println("Called as ", calledAs, ". I don't recognize that name")
 	}
