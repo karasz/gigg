@@ -19,6 +19,10 @@ func main() {
 		res = c.DnsipRun(args, false)
 	case "dnsip6":
 		res = c.DnsipRun(args, true)
+	case "dnsipq":
+		res = c.DnsipqRun(args, false)
+	case "dnsip6q":
+		res = c.DnsipqRun(args, true)
 	case "dnsname":
 		res = c.DnsnameRun(args)
 	case "dnsmx":

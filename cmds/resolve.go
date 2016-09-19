@@ -7,8 +7,8 @@ import (
 	"strings"
 )
 
-func parseresolv() ([]string, []string) {
-	var nameservers, search []string = make([]string, 0), make([]string, 0)
+func parseResolv() ([]string, []string, []string) {
+	var nameservers, search, domain []string = make([]string, 0), make([]string, 0), make([]string, 0)
 
 	file, err := os.Open("/etc/resolv.conf")
 	if err != nil {
@@ -25,6 +25,9 @@ func parseresolv() ([]string, []string) {
 		if strings.HasPrefix(line, "nameserver") {
 			nameservers = append(nameservers, strings.Fields(line)[1])
 		}
+		if strings.HasPrefix(line, "domain") {
+			domain = append(domain, strings.Fields(line)[1])
+		}
 		if strings.HasPrefix(line, "search") {
 			line = strings.TrimPrefix(line, "search")
 			for _, v := range strings.Fields(line) {
@@ -38,5 +41,5 @@ func parseresolv() ([]string, []string) {
 	if err := scanner.Err(); err != nil {
 		fmt.Println(err)
 	}
-	return nameservers, search
+	return nameservers, domain, search
 }
