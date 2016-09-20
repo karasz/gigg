@@ -33,6 +33,10 @@ func main() {
 		res = c.DnsrandipRun(false)
 	case "dnsrandip6":
 		res = c.DnsrandipRun(true)
+	case "dnssrv":
+		res = c.DnssrvRun(args)
+	case "dnsns":
+		res = c.DnsnsRun(args)
 	default:
 		fmt.Println("Called as ", calledAs, ". I don't recognize that name")
 	}
