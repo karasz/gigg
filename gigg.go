@@ -37,6 +37,8 @@ func main() {
 		res = c.DnssrvRun(args)
 	case "dnsns":
 		res = c.DnsnsRun(args)
+	case "dnsq":
+		res = c.DnsqRun(args)
 	default:
 		fmt.Println("Called as ", calledAs, ". I don't recognize that name")
 	}
