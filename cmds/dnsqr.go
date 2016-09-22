@@ -8,10 +8,23 @@ import (
 	"github.com/miekg/dns"
 )
 
-func DnsqRun(args []string) int {
-
+func DnsqrRun(args []string) int {
+	conf, err := dns.ClientConfigFromFile("/etc/resolv.conf")
+	if err != nil {
+		fmt.Println(err)
+		return 111
+	}
 	target := args[1]
-	server := makeserver(args[2])
+	server := conf.Servers[0]
+	if server[0] == '[' && server[len(server)-1] == ']' {
+		server = server[1 : len(server)-1]
+	}
+
+	if i := net.ParseIP(server); i != nil {
+		server = net.JoinHostPort(server, "53")
+	} else {
+		server = dns.Fqdn(server) + ":53"
+	}
 
 	c := dns.Client{}
 	m := dns.Msg{}
@@ -48,23 +61,4 @@ func DnsqRun(args []string) int {
 	}
 
 	return 0
-}
-
-func makeserver(s string) string {
-	/*
-		we support host, host:port,
-		[host]:port
-	*/
-	server := ""
-	fi := strings.Index(s, ":")
-	if fi != -1 {
-		if fi == strings.LastIndex(s, ":") || strings.HasPrefix(s, "[") {
-			h, p, _ := net.SplitHostPort(s)
-			server = h + ":" + p
-			return server
-		}
-	}
-	server = s + ":53"
-	return server
-
 }
