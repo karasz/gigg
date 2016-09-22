@@ -34,6 +34,7 @@ func DnsqrRun(args []string) int {
 		return 111
 	}
 
+	m.RecursionDesired = true
 	m.SetQuestion(dns.Fqdn(target), k)
 	r, _, err := c.Exchange(&m, server)
 	if err != nil {
@@ -41,23 +42,23 @@ func DnsqrRun(args []string) int {
 		return 111
 	}
 
-	fmt.Println("question: ", r.Question[0].String())
+	fmt.Println("question:", r.Question[0].String())
 
 	if len(r.Answer) == 0 {
 		for _, aut := range r.Ns {
-			fmt.Println("authority: ", aut)
+			fmt.Println("authority:", aut)
 		}
 		for _, ex := range r.Extra {
-			fmt.Println("additional: ", ex)
+			fmt.Println("additional:", ex)
 		}
 		return 0
 	}
 
 	for _, ans := range r.Answer {
-		fmt.Println("answer: ", ans)
+		fmt.Println("answer:", ans)
 	}
 	for _, aut := range r.Ns {
-		fmt.Println("authority: ", aut)
+		fmt.Println("authority:", aut)
 	}
 
 	return 0

@@ -33,19 +33,19 @@ func DnsqRun(args []string) int {
 
 	if len(r.Answer) == 0 {
 		for _, aut := range r.Ns {
-			fmt.Println("authority: ", aut)
+			fmt.Println("authority:", aut)
 		}
 		for _, ex := range r.Extra {
-			fmt.Println("additional: ", ex)
+			fmt.Println("additional:", ex)
 		}
 		return 0
 	}
 
 	for _, ans := range r.Answer {
-		fmt.Println("answer: ", ans)
+		fmt.Println("answer:", ans)
 	}
 	for _, aut := range r.Ns {
-		fmt.Println("authority: ", aut)
+		fmt.Println("authority:", aut)
 	}
 
 	return 0
