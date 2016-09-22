@@ -21,6 +21,7 @@ func DnsqRun(args []string) int {
 		return 111
 	}
 
+	m.RecursionDesired = false
 	m.SetQuestion(dns.Fqdn(target), k)
 	r, _, err := c.Exchange(&m, server)
 	if err != nil {
